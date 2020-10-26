@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#1B2C3D ">
 
     <Button
         android:id="@+id/btn_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#1B2C3D "
         android:text="Home"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:textColor="#08FA46"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/iv_profilePicture"
@@ -30,6 +34,7 @@
         android:layout_marginEnd="64dp"
         android:layout_marginRight="64dp"
         android:text="Username"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/tv_profileUsername"
         app:layout_constraintEnd_toStartOf="@+id/tv_profileUsername"
         app:layout_constraintTop_toTopOf="@+id/tv_profileUsername" />
@@ -40,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="Enrico"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_profilePicture" />
@@ -50,6 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Games Played"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/tv_profileUsernameTitle"
         app:layout_constraintTop_toBottomOf="@+id/tv_profileUsernameTitle" />
 
@@ -59,6 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="37"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/tv_profileUsername"
         app:layout_constraintTop_toBottomOf="@+id/tv_profileUsername" />
 
@@ -68,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Favorite Game"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/tv_gamesPlayed"
         app:layout_constraintTop_toBottomOf="@+id/tv_gamesPlayed" />
 
@@ -77,6 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Super Mario 64"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/tv_gamesPlayedCount"
         app:layout_constraintTop_toBottomOf="@+id/tv_gamesPlayedCount" />
 
@@ -85,6 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Profile"
+        android:textColor="#08FA46 "
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/iv_profilePicture"
         app:layout_constraintEnd_toEndOf="parent"
