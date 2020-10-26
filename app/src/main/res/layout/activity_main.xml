@@ -27,7 +27,7 @@
         android:id="@+id/btn_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#1B2C3D"
+        android:background="#1E2430 "
         android:text="@string/myGamesButton"
         android:textColor="#08FA46"
         app:layout_constraintBottom_toBottomOf="parent"
