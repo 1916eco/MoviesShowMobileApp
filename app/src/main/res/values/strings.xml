@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">GameList</string>
+    <string name="gameDescription">Game Description</string>
+    <string name="developerResource">Developer</string>
+    <string name="homeButton">Home</string>
+    <string name="loginButton">Login</string>
+    <string name="searchButton">Search</string>
+    <string name="myGamesButton">My Games</string>
+    <string name="profileButton">Profile</string>
+    <string name="myGamesTitle">My Games</string>
+    <string name="homeTitle">Home</string>
+    <string name="usernameResource">Username</string>
+    <string name="gamesPlayedTitle">Games Played</string>
+    <string name="favGame">Favorite Game</string>
+    <string name="myProfileTitle">My Profile</string>
+    <string name="registerTitle">Register</string>
+    <string name="fullName">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="playedButton">Played</string>
+    <string name="registerClickHere">Click Here</string>
+    <string name="noAccount">Dont have an Account?</string>
 </resources>
