@@ -45,7 +45,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/et_gameNameSearch"
+                android:id="@+id/et_myGameNameSearch"
                 android:layout_width="322dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
