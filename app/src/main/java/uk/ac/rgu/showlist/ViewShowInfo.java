@@ -7,14 +7,57 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 public class ViewShowInfo extends AppCompatActivity implements View.OnClickListener {
+
+    private  Show show;
+    TextView tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        tvName = (TextView) findViewById(R.id.tv_showInfoTitle);
+
+        Intent launcher = getIntent();
+
+        if (launcher.hasExtra(ShowRecyclerViewAdapter.EXTRA_SHOW_NAME)) {
+            String showName = launcher.getStringExtra(ShowRecyclerViewAdapter.EXTRA_SHOW_NAME);
+            show = new Show();
+            show.setName(showName);
+            show.setOverview(launcher.getStringExtra(ShowRecyclerViewAdapter.EXTRA_OVERVIEW));
+            show.setFirstAirDate(launcher.getStringExtra(ShowRecyclerViewAdapter.EXTRA_RELEASE));
+            show.setVoteAvg(launcher
+                    .getDoubleExtra(ShowRecyclerViewAdapter.EXTRA_VOTEAVG,0.0));
+            show.setBackdropImage(launcher
+                    .getStringExtra(ShowRecyclerViewAdapter.EXTRA_BACKDROPIMG));
+
+        }
+
+
         setContentView(R.layout.activity_view_show_info);
         ((Button)findViewById(R.id.btn_checkOnline)).setOnClickListener(this);
+
+        String tvName = show.getName();
+        ((TextView) findViewById(R.id.tv_showInfoTitle)).setText(tvName);
+
+        String tvOverview = show.getOverview();
+        ((TextView) findViewById(R.id.tv_showInfoDescription)).setText(tvOverview);
+
+        Double tvAvg = show.getVoteAvg();
+        ((TextView) findViewById(R.id.tv_showInfoRatingAvarage)).setText(Double.toString(tvAvg));
+
+        String tvRelease = show.getFirstAirDate();
+        ((TextView) findViewById(R.id.tv_showInfoAirDate)).setText(tvRelease);
+
+        Glide.with(getApplicationContext())
+                .load("https://image.tmdb.org/t/p/original"+show.getBackdropImage())
+                .into((ImageView) findViewById(R.id.iv_showInfoBackdrop));
+
     }
 
     @Override
@@ -24,7 +67,7 @@ public class ViewShowInfo extends AppCompatActivity implements View.OnClickListe
 
             Uri baseUri = Uri.parse("https://www.google.com/search");
             Uri.Builder builder = baseUri.buildUpon();
-            builder.appendQueryParameter("q", String.format("%s ", "Lucifer"));//("%s ",movieName)
+            builder.appendQueryParameter("q", String.format("%s ", show.getName()));//("%s ",movieName)
             Uri dataUri = builder.build();
             intent.setData(dataUri);
 

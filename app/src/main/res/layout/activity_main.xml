@@ -44,6 +44,7 @@
         android:hint="@string/searchHint"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
+        android:textColorHint="@color/white"
         android:textIsSelectable="false"
         app:layout_constraintBottom_toTopOf="@+id/rv_newShowsOutput"
         app:layout_constraintEnd_toStartOf="@+id/btn_SearchNewShowSubmit"

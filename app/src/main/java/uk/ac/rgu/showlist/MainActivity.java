@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.btn_watchList){
             Intent intent = new Intent(getApplicationContext(), myWatchlist.class);
-
             startActivity(intent);
         }else if (v.getId() == R.id.btn_myList) {
             Intent intent = new Intent(getApplicationContext(), myshows.class);
@@ -79,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String searched = "https://api.themoviedb.org/3/search/tv?api_key=2af2618736137dad0ac52770650060d6&page=1&query="+ newShowNameSearch;
 
                 getShowFromAPI(searched);
-                Toast.makeText(getApplicationContext(), "Searching for "+newShowNameSearch, Toast.LENGTH_LONG).show();
-            }
+                Toast.makeText(getApplicationContext(), "Searching for "+newShowNameSearch, Toast.LENGTH_SHORT).show();
+            }else {getShowFromAPI(JSON_URL);}
         }
     }
 
@@ -112,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(request);
     }
+
+
+    //Keeping app state
 
     @Override
     protected void onStart() {

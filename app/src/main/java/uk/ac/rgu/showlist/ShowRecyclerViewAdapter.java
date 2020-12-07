@@ -1,6 +1,7 @@
 package uk.ac.rgu.showlist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,14 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 import java.util.zip.Inflater;
 
-public class ShowRecyclerViewAdapter extends RecyclerView.Adapter<ShowRecyclerViewAdapter.ShowViewHolder> {
+public class ShowRecyclerViewAdapter
+        extends RecyclerView.Adapter<ShowRecyclerViewAdapter.ShowViewHolder> {
+
+    public static final String EXTRA_SHOW_NAME = "uk.ac.rgu.showlist.SHOW_NAME";
+    public static final String EXTRA_OVERVIEW = "uk.ac.rgu.showlist.OVERVIEW";
+    public static final String EXTRA_VOTEAVG = "uk.ac.rgu.showlist.VOTEAVG";
+    public static final String EXTRA_BACKDROPIMG = "uk.ac.rgu.showlist.BACKDROPIMG";
+    public static final String EXTRA_RELEASE = "uk.ac.rgu.showlist.RELEASE";
 
     //member variables for context its working in
     private Context context;
@@ -91,6 +99,16 @@ public class ShowRecyclerViewAdapter extends RecyclerView.Adapter<ShowRecyclerVi
             int position = getAdapterPosition();
 
             Show show = shows.get(position);
+
+            Intent intent = new Intent(context, ViewShowInfo.class);
+            intent.putExtra(EXTRA_SHOW_NAME, show.getName());
+            intent.putExtra(EXTRA_OVERVIEW, show.getOverview());
+            intent.putExtra(EXTRA_VOTEAVG, show.getVoteAvg());
+            intent.putExtra(EXTRA_BACKDROPIMG, show.getBackdropImage());
+            intent.putExtra(EXTRA_RELEASE, show.getFirstAirDate());
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
 
             Log.d("SHOW_RECYCLER", "user clicked "+ show.getName());
 

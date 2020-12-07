@@ -20,4 +20,6 @@
     <string name="tv_airdateTitle">First Released</string>
     <string name="tv_userRatingTitle">User Rating</string>
     <string name="btn_CheckOnline">Check Online</string>
+    <string name="btn_addToMyShow">Add to Showlist</string>
+    <string name="btn_addWatchList">Add to Watchlist</string>
 </resources>
