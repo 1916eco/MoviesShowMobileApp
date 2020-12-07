@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String newShowNameSearch;
     //key 2af2618736137dad0ac52770650060d6
 
-    //private static String JSON_URL = "https://api.themoviedb.org/3/discover/tv?api_key=2af2618736137dad0ac52770650060d6&page=1";
-
+    private static String JSON_URL = "https://api.themoviedb.org/3/discover/tv?api_key=2af2618736137dad0ac52770650060d6&page=1";
+    //private static String JSON_URL = "https://api.themoviedb.org/3/search/tv?api_key=2af2618736137dad0ac52770650060d6&page=1&query=lucifer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //showList = new ArrayList<>();
         Log.d(TAG,"IT CREATED");
-        getShowFromAPI();
+        getShowFromAPI(JSON_URL);
 
         Button btnWatchList = findViewById(R.id.btn_watchList);
         btnWatchList.setOnClickListener(this);
@@ -75,7 +75,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             EditText etLocation = findViewById(R.id.et_myMyShowNameSearch);
             newShowNameSearch = String.valueOf(etLocation.getText());
-            if (newShowNameSearch != null){
+            if (!newShowNameSearch.matches("")){
+                String searched = "https://api.themoviedb.org/3/search/tv?api_key=2af2618736137dad0ac52770650060d6&page=1&query="+ newShowNameSearch;
+
+                getShowFromAPI(searched);
                 Toast.makeText(getApplicationContext(), "Searching for "+newShowNameSearch, Toast.LENGTH_LONG).show();
             }
         }
@@ -83,8 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    private void getShowFromAPI() {
-        String JSON_URL = "https://api.themoviedb.org/3/discover/tv?api_key=2af2618736137dad0ac52770650060d6&page=1";
+    private void getShowFromAPI(String JSON_URL) {
 
         StringRequest request = new StringRequest(Request.Method.GET, JSON_URL, new Response.Listener<String>() {
 
