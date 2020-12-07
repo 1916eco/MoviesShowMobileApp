@@ -24,9 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Showlist">
-        <activity android:name=".ViewShowInfo"></activity>
-        <activity android:name=".myWatchlist" />
-        <activity android:name=".myshows" />
+        <activity android:name=".ViewShowInfo" android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".myWatchlist" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".myshows" android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity"><intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

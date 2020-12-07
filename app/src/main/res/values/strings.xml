@@ -5,21 +5,20 @@
     <string name="homeButton">Home</string>
     <string name="loginButton">Login</string>
     <string name="searchButton">Search</string>
-    <string name="myShowsButton">My Shows</string>
+    <string name="myShowsButton">My Seen Shows</string>
     <string name="profileButton">Profile</string>
-    <string name="myGamesTitle">My Shows</string>
     <string name="homeTitle">New Shows</string>
     <string name="showsWatchedTitle">Shows Watched</string>
     <string name="favGame">Favorite Shows</string>
     <string name="watchedButton">Watched</string>
     <string name="searchHint">Show Title</string>
-    <string name="myWatchList">Watchlist</string>
-    <string name="tv_watchlist">My Watchlist</string>
+    <string name="myWatchList">Watch Later</string>
+    <string name="tv_watchlist">Watch Later</string>
     <string name="favourite_btn">Favourite</string>
     <string name="tv_Description">Description</string>
     <string name="tv_airdateTitle">First Released</string>
     <string name="tv_userRatingTitle">User Rating</string>
     <string name="btn_CheckOnline">Check Online</string>
-    <string name="btn_addToMyShow">Add to Showlist</string>
-    <string name="btn_addWatchList">Add to Watchlist</string>
+    <string name="btn_addToMyShow">Seen</string>
+    <string name="btn_addWatchList">Watch Later</string>
 </resources>

@@ -26,7 +26,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/btn_addToWatched"
         tools:text="Lucifer" />
 
     <ScrollView
@@ -84,26 +84,34 @@
                 tools:text="2019-11-12" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/tv_userRatingTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="@string/tv_userRatingTitle"
                 android:textColor="@color/white" />
 
-            <ImageView
-                android:id="@+id/iv_star"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:srcCompat="@android:drawable/btn_star" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_showInfoRatingAvarage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/white" />
+                <ImageView
+                    android:id="@+id/iv_star"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:srcCompat="@android:drawable/btn_star" />
+
+                <TextView
+                    android:id="@+id/tv_showInfoRatingAvarage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_checkOnline"
@@ -119,30 +127,28 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_addToWatchlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="@string/btn_addWatchList"
         app:backgroundTint="@color/material_on_background_disabled"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/btn_addToWatched"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
+        app:layout_constraintTop_toTopOf="@+id/btn_addToWatched" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_addToWatched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/btn_addToMyShow"
         app:backgroundTint="@color/material_on_background_disabled"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/btn_addToWatchlist"
         app:layout_constraintTop_toBottomOf="@+id/iv_showInfoBackdrop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
