@@ -18,8 +18,12 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import uk.ac.rgu.showlist.database.SeenDatabase;
+
+
 public class ShowRecyclerViewAdapter
         extends RecyclerView.Adapter<ShowRecyclerViewAdapter.ShowViewHolder> {
+
 
     public static final String EXTRA_SHOW_NAME = "uk.ac.rgu.showlist.SHOW_NAME";
     public static final String EXTRA_OVERVIEW = "uk.ac.rgu.showlist.OVERVIEW";

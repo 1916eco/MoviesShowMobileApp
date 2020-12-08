@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -38,9 +39,14 @@ public class ViewShowInfo extends AppCompatActivity implements View.OnClickListe
 
         }
 
-
         setContentView(R.layout.activity_view_show_info);
         ((Button)findViewById(R.id.btn_checkOnline)).setOnClickListener(this);
+
+        ((Button)findViewById(R.id.btn_showInfoAddToWatchlist)).setOnClickListener(this);
+
+        ((Button)findViewById(R.id.btn_showInfoAddToWatched)).setOnClickListener(this);
+
+
 
         String tvName = show.getName();
         ((TextView) findViewById(R.id.tv_showInfoTitle)).setText(tvName);
@@ -74,6 +80,13 @@ public class ViewShowInfo extends AppCompatActivity implements View.OnClickListe
             if (intent.resolveActivity(getPackageManager()) != null){
                 startActivity(intent);
             }
+        }else if (v.getId() == R.id.btn_showInfoAddToWatched){
+            Toast.makeText(getApplicationContext(), "Added "+ show.getName()+" to Seen list! " , Toast.LENGTH_SHORT).show();
+
         }
+        else if (v.getId() == R.id.btn_showInfoAddToWatchlist){
+            Toast.makeText(getApplicationContext(), "Added "+ show.getName()+" to need-to-watch list! " , Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

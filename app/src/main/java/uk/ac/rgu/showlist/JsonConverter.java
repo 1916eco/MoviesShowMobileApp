@@ -8,7 +8,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import uk.ac.rgu.showlist.database.SeenDatabase;
+
 public class JsonConverter {
+
+    public SeenDatabase seenDatabase;
+
+
 
     public List<Show> convertJsonToShow(String jsonString){
         List<Show> shows = new ArrayList<Show>();
