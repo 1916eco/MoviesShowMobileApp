@@ -2,6 +2,7 @@ package uk.ac.rgu.showlist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class ShowRecyclerViewAdapter
     public static final String EXTRA_VOTEAVG = "uk.ac.rgu.showlist.VOTEAVG";
     public static final String EXTRA_BACKDROPIMG = "uk.ac.rgu.showlist.BACKDROPIMG";
     public static final String EXTRA_RELEASE = "uk.ac.rgu.showlist.RELEASE";
+
 
     //member variables for context its working in
     private Context context;
@@ -64,13 +66,23 @@ public class ShowRecyclerViewAdapter
         TextView firstairDate = holder.showItemView.findViewById(R.id.tv_rating);
         firstairDate.setText(show.getFirstAirDate());
 
+        /**
+         *Using Glide library to get the full url for the poster as the api only gives the last
+         * extension so converting the full and then loading it into the ImageViewer
+         */
+        if (shows.get(position).getPosterImage() != "null"){
         Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500"+shows.get(position).getPosterImage())
                 .into((ImageView) holder.showItemView.findViewById(R.id.iv_img));
 
+        }
+        else{
+            Glide.with(context)
+                    .load(R.drawable.no_img_for_shows)
+                    .into((ImageView) holder.showItemView.findViewById(R.id.iv_img));
+        }
+
         Log.d("SHOW_RECYCLER","BINDING");
-
-
     }
 
 //    @Override
