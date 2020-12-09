@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/et_myMyShowNameSearch"
+        android:id="@+id/et_mainNameSearch"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#1E2430"
@@ -76,9 +76,12 @@
         android:id="@+id/btn_SearchNewShowSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#1E2430"
         android:text="@string/searchButton"
-        app:backgroundTint="@color/material_on_background_disabled"
+        android:textColor="#08FA46"
+        app:backgroundTint="#1E2430"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/et_myMyShowNameSearch" />
+        app:layout_constraintTop_toTopOf="@+id/et_mainNameSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

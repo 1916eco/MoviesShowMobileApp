@@ -33,12 +33,16 @@ public class SeenRepository {
             this.showDao.insert(show);
         }
 
-        public List<Show> getSeenShows(){
-            return showDao.getAllShows();
+        public List<Show> getSeenShows(String listNamePassed){
+            return showDao.getAllWatchedShows(listNamePassed);
         };
 
         public void deleteAllShows(){
             showDao.deleteAll();
+        }
+
+        public List<Show> getSearchedShows(String showTitle, String listNamePassed){
+            return showDao.findShowByName(showTitle,listNamePassed);
         }
 
 

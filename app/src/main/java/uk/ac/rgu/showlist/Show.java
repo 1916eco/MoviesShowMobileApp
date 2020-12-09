@@ -8,18 +8,17 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "show")
 public class Show {
-
-    String name;
-
-    String overview;
-    Double voteAvg;
-
     @PrimaryKey
     @ColumnInfo(name = "ShowID")
     Integer id;
+
+    String name;
+    String overview;
+    Double voteAvg;
     String firstAirDate;
     String posterImage;
     String backdropImage;
+    String listName;
 
     public Show(String name, String overview, Double voteAvg, Integer id, String firstAirDate, String posterImage, String backdropImage) {
         this.name = name;
@@ -32,6 +31,14 @@ public class Show {
     }
 
     public Show() {
+    }
+
+    public String getListName() {
+        return listName;
+    }
+
+    public void setListName(String listName) {
+        this.listName = listName;
     }
 
     public String getName() {

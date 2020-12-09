@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }else if (v.getId() == R.id.btn_SearchNewShowSubmit){
 
-            EditText etSearchTerm = findViewById(R.id.et_myMyShowNameSearch);
+            EditText etSearchTerm = findViewById(R.id.et_mainNameSearch);
             newShowNameSearch = String.valueOf(etSearchTerm.getText());
             if (!newShowNameSearch.matches("")){
                 //get the Search word that is in the etSearchTerm

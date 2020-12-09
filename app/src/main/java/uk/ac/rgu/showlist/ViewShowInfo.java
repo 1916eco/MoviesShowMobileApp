@@ -27,6 +27,9 @@ public class ViewShowInfo extends AppCompatActivity implements View.OnClickListe
         tvName = (TextView) findViewById(R.id.tv_showInfoTitle);
 
         Intent launcher = getIntent();
+        /**
+         * Recieve the Extras that were "sent" by the previous page
+         */
 
         if (launcher.hasExtra(ShowRecyclerViewAdapter.EXTRA_SHOW_NAME)) {
             String showName = launcher.getStringExtra(ShowRecyclerViewAdapter.EXTRA_SHOW_NAME);
@@ -86,11 +89,14 @@ public class ViewShowInfo extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
             }
         }else if (v.getId() == R.id.btn_showInfoAddToWatched){
+            show.setListName("seenList");
             SeenRepository.getRepository(getApplicationContext()).storeSeenShows(show);
             Toast.makeText(getApplicationContext(), "Added "+ show.getName()+" to Seen list! " , Toast.LENGTH_SHORT).show();
 
         }
         else if (v.getId() == R.id.btn_showInfoAddToWatchlist){
+            show.setListName("toWatchList");
+            SeenRepository.getRepository(getApplicationContext()).storeSeenShows(show);
             Toast.makeText(getApplicationContext(), "Added "+ show.getName()+" to need-to-watch list! " , Toast.LENGTH_SHORT).show();
         }
 

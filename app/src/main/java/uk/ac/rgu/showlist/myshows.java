@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,25 +21,30 @@ import java.util.List;
 import uk.ac.rgu.showlist.database.SeenRepository;
 import uk.ac.rgu.showlist.database.ShowDao;
 
-public class myshows extends AppCompatActivity {
+public class myshows extends AppCompatActivity implements View.OnClickListener {
 
+    private String newShowNameSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myshows);
 
-        RecyclerView recyclerView = findViewById(R.id.rv_MyShowsOutput);
+        ((Button)findViewById(R.id.btn_myShowListSubmit)).setOnClickListener(this);
 
+        List<Show> shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
+        displayRecyclerView(shows);
 
-
-        List<Show> shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSeenShows();
-        RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
     }
 
+    public void displayRecyclerView(List<Show> shows){
+        RecyclerView recyclerView = findViewById(R.id.rv_MyShowsOutput);
+
+        RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
@@ -50,15 +58,13 @@ public class myshows extends AppCompatActivity {
         if (id == R.id.deleteAllMenu){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-            builder.setTitle("Do this action");
+            builder.setTitle("Delete Everything");
             builder.setMessage("Are you sure you would like to Delete All?");
 
             builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-
-                    Toast.makeText(getApplicationContext(), "clicked no! " , Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "Your data is safe again!" , Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
 
@@ -68,7 +74,7 @@ public class myshows extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     SeenRepository.getRepository(getApplicationContext()).deleteAllShows();
-                    Toast.makeText(getApplicationContext(), "clicked yes! " , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Deleted Everything! " , Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             });
@@ -77,5 +83,22 @@ public class myshows extends AppCompatActivity {
             alert.show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_myShowListSubmit){
+            EditText etSearchTerm = findViewById(R.id.et_myMyShowListNameSearch);
+            newShowNameSearch = String.valueOf(etSearchTerm.getText());
+            newShowNameSearch = "%" +newShowNameSearch +"%";
+            if (!newShowNameSearch.matches("")||!newShowNameSearch.matches(null) ) {
+                List<Show> shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,"seenList");
+                displayRecyclerView(shows);
+                Log.d("BRUH", shows + newShowNameSearch);
+            }else {
+                Toast.makeText(getApplicationContext(), "Search Empty! " , Toast.LENGTH_SHORT).show();
+
+            }
+        }
     }
 }

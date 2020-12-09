@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/et_myMyShowListNameSearch"
+        android:id="@+id/et_myWatchLaterListNameSearch"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#1E2430"
