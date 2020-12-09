@@ -13,10 +13,10 @@ import uk.ac.rgu.showlist.Show;
 @Dao
 public interface ShowDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     public void insert(Show show);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     public void insertShows(Show... show);
 
     @Query("SELECT * from show ORDER BY name ASC ")
@@ -27,4 +27,7 @@ public interface ShowDao {
 
     @Delete
     public void delete(Show show);
+
+    @Query("DELETE FROM show")
+    public void deleteAll();
 }

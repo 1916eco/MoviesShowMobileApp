@@ -31,6 +31,7 @@
                 android:id="@+id/iv_showInfoBackdrop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/iv_ContentDescription"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -54,8 +55,12 @@
                     android:id="@+id/btn_showInfoAddToWatchlist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+
+                    android:foregroundGravity="center"
+                    android:gravity="center"
                     android:text="@string/btn_addWatchList"
                     app:backgroundTint="@color/material_on_background_disabled" />
 
@@ -63,9 +68,9 @@
                     android:id="@+id/btn_showInfoAddToWatched"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
                     android:text="@string/btn_addToMyShow"
                     app:backgroundTint="@color/material_on_background_disabled" />
             </LinearLayout>

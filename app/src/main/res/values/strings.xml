@@ -22,4 +22,5 @@
     <string name="btn_addToMyShow">Seen</string>
     <string name="btn_addWatchList">Watch Later</string>
     <string name="iv_ContentDescription">Image Of the Show</string>
+    <string name="menu_deleteAllShow">Delete all from Show</string>
 </resources>

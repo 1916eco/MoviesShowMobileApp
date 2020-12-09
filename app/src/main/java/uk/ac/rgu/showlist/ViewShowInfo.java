@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import uk.ac.rgu.showlist.database.SeenRepository;
+
 public class ViewShowInfo extends AppCompatActivity implements View.OnClickListener {
 
     private  Show show;
@@ -36,6 +38,9 @@ public class ViewShowInfo extends AppCompatActivity implements View.OnClickListe
                     .getDoubleExtra(ShowRecyclerViewAdapter.EXTRA_VOTEAVG,0.0));
             show.setBackdropImage(launcher
                     .getStringExtra(ShowRecyclerViewAdapter.EXTRA_BACKDROPIMG));
+            show.setPosterImage(launcher
+                    .getStringExtra(ShowRecyclerViewAdapter.EXTRA_POSTER));
+            show.setId(launcher.getIntExtra(ShowRecyclerViewAdapter.EXTRA_SHOWID,0));
 
         }
 
@@ -81,6 +86,7 @@ public class ViewShowInfo extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
             }
         }else if (v.getId() == R.id.btn_showInfoAddToWatched){
+            SeenRepository.getRepository(getApplicationContext()).storeSeenShows(show);
             Toast.makeText(getApplicationContext(), "Added "+ show.getName()+" to Seen list! " , Toast.LENGTH_SHORT).show();
 
         }

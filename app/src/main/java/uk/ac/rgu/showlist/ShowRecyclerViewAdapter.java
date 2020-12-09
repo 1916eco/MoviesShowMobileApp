@@ -30,6 +30,9 @@ public class ShowRecyclerViewAdapter
     public static final String EXTRA_VOTEAVG = "uk.ac.rgu.showlist.VOTEAVG";
     public static final String EXTRA_BACKDROPIMG = "uk.ac.rgu.showlist.BACKDROPIMG";
     public static final String EXTRA_RELEASE = "uk.ac.rgu.showlist.RELEASE";
+    public static final String EXTRA_POSTER = "uk.ac.rgu.showlist.POSTER";
+    public static final String EXTRA_SHOWID = "uk.ac.rgu.showlist.SHOWID";
+
 
 
     //member variables for context its working in
@@ -121,7 +124,10 @@ public class ShowRecyclerViewAdapter
             intent.putExtra(EXTRA_OVERVIEW, show.getOverview());
             intent.putExtra(EXTRA_VOTEAVG, show.getVoteAvg());
             intent.putExtra(EXTRA_BACKDROPIMG, show.getBackdropImage());
+            intent.putExtra(EXTRA_POSTER, show.getPosterImage());
             intent.putExtra(EXTRA_RELEASE, show.getFirstAirDate());
+            intent.putExtra(EXTRA_SHOWID, show.getId());
+
 
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
