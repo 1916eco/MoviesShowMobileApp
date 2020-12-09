@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import uk.ac.rgu.showlist.Show;
 
-@Database(entities = {Show.class}, version = 1)
+@Database(entities = {Show.class}, version = 2)
 public abstract class SeenDatabase extends RoomDatabase {
 
     public abstract ShowDao showDao();

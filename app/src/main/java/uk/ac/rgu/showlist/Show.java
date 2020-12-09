@@ -9,21 +9,12 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "show")
 public class Show {
 
-    @NonNull
-    @PrimaryKey(autoGenerate = true)
-    private int uid;
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
     String name;
+
     String overview;
     Double voteAvg;
+
+    @PrimaryKey
     @ColumnInfo(name = "ShowID")
     Integer id;
     String firstAirDate;

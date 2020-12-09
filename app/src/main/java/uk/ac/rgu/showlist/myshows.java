@@ -63,15 +63,12 @@ public class myshows extends AppCompatActivity {
                 }
 
             });
-
             builder.setNegativeButton("YES", new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     SeenRepository.getRepository(getApplicationContext()).deleteAllShows();
                     Toast.makeText(getApplicationContext(), "clicked yes! " , Toast.LENGTH_SHORT).show();
-
-                    // I do not need any action here you might
                     dialog.dismiss();
                 }
             });
