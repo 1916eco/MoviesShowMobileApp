@@ -37,8 +37,8 @@ public class SeenRepository {
             return showDao.getAllWatchedShows(listNamePassed);
         };
 
-        public void deleteAllShows(){
-            showDao.deleteAll();
+        public void deleteAllShows(String listNamePassed){
+            showDao.deleteAll(listNamePassed);
         }
 
         public List<Show> getSearchedShows(String showTitle, String listNamePassed){

@@ -34,8 +34,6 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
 
         List<Show> shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
         displayRecyclerView(shows);
-
-
     }
 
     public void displayRecyclerView(List<Show> shows){
@@ -59,7 +57,7 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             builder.setTitle("Delete Everything");
-            builder.setMessage("Are you sure you would like to Delete All?");
+            builder.setMessage("Are you sure you would like to Delete all Seen?");
 
             builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
 
@@ -67,13 +65,12 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
                     Toast.makeText(getApplicationContext(), "Your data is safe again!" , Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
-
             });
             builder.setNegativeButton("YES", new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    SeenRepository.getRepository(getApplicationContext()).deleteAllShows();
+                    SeenRepository.getRepository(getApplicationContext()).deleteAllShows("seenList");
                     Toast.makeText(getApplicationContext(), "Deleted Everything! " , Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }

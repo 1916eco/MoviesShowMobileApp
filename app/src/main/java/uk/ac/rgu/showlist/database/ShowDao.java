@@ -28,6 +28,6 @@ public interface ShowDao {
     @Delete
     public void delete(Show show);
 
-    @Query("DELETE FROM show")
-    public void deleteAll();
+    @Query("DELETE FROM show WHERE listName like :listNamePassed")
+    public void deleteAll(String listNamePassed);
 }
