@@ -30,4 +30,7 @@ public interface ShowDao {
 
     @Query("DELETE FROM show WHERE listName like :listNamePassed")
     public void deleteAll(String listNamePassed);
+
+    @Query("DELETE FROM show WHERE (name like :searchForName) and (listName like :listNamePassed)")
+    public void deleteByName(String searchForName, String listNamePassed);
 }

@@ -2,6 +2,7 @@ package uk.ac.rgu.showlist;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,7 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
 
 
     private String newShowNameSearch;
+    public List<Show> shows;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
 
 
 
-        List<Show> shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
+        shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
         displayRecyclerView(shows);
 
 
@@ -46,6 +48,7 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
         RecyclerView recyclerView = findViewById(R.id.rv_myWatchlistOutput);
 
         RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
@@ -53,6 +56,39 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
+
+    @Override
+    public void onClick(View v) {
+
+
+        if (v.getId() == R.id.btn_myShowListSubmit){
+            EditText etSearchTerm = findViewById(R.id.et_myWatchLaterListNameSearch);
+            newShowNameSearch = String.valueOf(etSearchTerm.getText());
+            newShowNameSearch = "%" +newShowNameSearch +"%"; //For SQL not exact search modifying the search to have % % around it
+            if (!newShowNameSearch.matches("")||!newShowNameSearch.matches(null) ) {
+                shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,"toWatchList");
+                displayRecyclerView(shows);
+            }else {
+                Toast.makeText(getApplicationContext(), "Search Empty! " , Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+            SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,"toWatchList");
+
+            shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
+            displayRecyclerView(shows);
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -79,31 +115,15 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
                         SeenRepository.getRepository(getApplicationContext()).deleteAllShows("toWatchList");
                         Toast.makeText(getApplicationContext(), "Deleted Everything! " , Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
+                        recreate();
+
                     }
                 });
 
                 AlertDialog alert = builder.create();
                 alert.show();
             }
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-
-
-        if (v.getId() == R.id.btn_myShowListSubmit){
-            EditText etSearchTerm = findViewById(R.id.et_myWatchLaterListNameSearch);
-            newShowNameSearch = String.valueOf(etSearchTerm.getText());
-            newShowNameSearch = "%" +newShowNameSearch +"%";
-            if (!newShowNameSearch.matches("")||!newShowNameSearch.matches(null) ) {
-                List<Show> shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,"toWatchList");
-                displayRecyclerView(shows);
-            }else {
-                Toast.makeText(getApplicationContext(), "Search Empty! " , Toast.LENGTH_SHORT).show();
-
-            }
+            return super.onOptionsItemSelected(item);//toWatchList
         }
     }
 }

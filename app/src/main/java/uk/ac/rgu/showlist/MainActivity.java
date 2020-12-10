@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onErrorResponse(VolleyError error) {
                 //If Error occurs just an error message in debug happens
                 Log.d(TAG,"Error "+error.getLocalizedMessage());
-
             }
         });
         /**

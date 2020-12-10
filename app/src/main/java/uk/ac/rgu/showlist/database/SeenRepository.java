@@ -45,5 +45,9 @@ public class SeenRepository {
             return showDao.findShowByName(showTitle,listNamePassed);
         }
 
+    public void deleteShowbyName(String showTitle,String listNamePassed){
+        showDao.deleteByName(showTitle,listNamePassed);
+    }
+
 
 }
