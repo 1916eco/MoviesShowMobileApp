@@ -40,15 +40,14 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
         displayRecyclerView(shows);
     }
 
-
     public void displayRecyclerView(List<Show> shows){
         RecyclerView recyclerView = findViewById(R.id.rv_MyShowsOutput);
-
         RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
@@ -81,14 +80,14 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,"seenList");
+            //SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,"seenList");
 
             shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
+
             displayRecyclerView(shows);
 
         }
     };
-
 
     /**
      * AlertDialog creating a "Are you sure" dialog to get users final choice

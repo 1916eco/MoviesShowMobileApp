@@ -78,15 +78,14 @@ public class ShowRecyclerViewAdapter
          *Using Glide library to get the full url for the poster as the api only gives the last
          * extension so converting the full and then loading it into the ImageViewer
          */
-        if (shows.get(position).getPosterImage() != "null" || shows.get(position).getPosterImage() != null ){
-        Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500"+shows.get(position).getPosterImage())
-                .into((ImageView) holder.showItemView.findViewById(R.id.iv_img));
-
+        if (shows.get(position).getPosterImage() == "null" || shows.get(position).getPosterImage() == null ){
+            Glide.with(context)
+                    .load(R.drawable.no_img_for_shows)
+                    .into((ImageView) holder.showItemView.findViewById(R.id.iv_img));
         }
         else{
             Glide.with(context)
-                    .load(R.drawable.no_img_for_shows)
+                    .load("https://image.tmdb.org/t/p/w500"+shows.get(position).getPosterImage())
                     .into((ImageView) holder.showItemView.findViewById(R.id.iv_img));
         }
 

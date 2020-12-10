@@ -22,5 +22,11 @@
     <string name="btn_addToMyShow">Seen</string>
     <string name="btn_addWatchList">Watch Later</string>
     <string name="iv_ContentDescription">Image Of the Show</string>
-    <string name="menu_deleteAllShow">Delete all from Show</string>
+    <string name="menu_deleteAllShow">Delete all Data</string>
+    <string name="tv_infoGuide">Application Guide</string>
+    <string name="tv_titleGuide">Lucifer</string>
+    <string name="tv_releaseGuide">2016-01-25</string>
+    <string name="tv_guideDescription1">To add a show to one of your lists you can slide Right to add to the Seen list and Left to need to watch later list</string>
+    <string name="tv_guideDescription2">Click one of the buttons to View your Lists</string>
+
 </resources>

@@ -1,5 +1,6 @@
 package uk.ac.rgu.showlist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,6 +68,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          * As the Main activity loads the application starts the getShowFromAPI function
          */
         getShowFromAPI(JSON_URL);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.informationGuide) {
+            Intent intent = new Intent(getApplicationContext(), application_guide.class);
+            startActivity(intent);
+
+        }
+            return super.onOptionsItemSelected(item);
     }
 
     @Override
