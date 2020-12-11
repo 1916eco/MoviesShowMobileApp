@@ -32,5 +32,6 @@
         Right to add to the Seen list and Left to need to watch later list.
         In the List view you can also swipe either way to delete the show from the list.</string>
     <string name="tv_guideDescription2">Click one of the buttons to View your Lists</string>
+    <string name="ImageDescription">"TMDB "</string>
 
 </resources>

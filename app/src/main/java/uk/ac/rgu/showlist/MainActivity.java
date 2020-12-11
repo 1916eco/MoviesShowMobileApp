@@ -46,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = MainActivity.class.getCanonicalName();
     private String newShowNameSearch;
+
+    /**
+     *
+     */
     public List<Show> shows;
 
     public List<Show> getShows() {
@@ -55,7 +59,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void setShows(List<Show> shows) {
         this.shows = shows;
     }
-//key 2af2618736137dad0ac52770650060d6
+
+    /**     API url to get the front page this would preferably be on a proxy, making a call to a proxy link
+     *      would be more protective of the apikey and users would have no way of getting it
+     */
 
     private static String JSON_URL = "https://api.themoviedb.org/3/discover/tv?api_key=2af2618736137dad0ac52770650060d6&page=1";
 
@@ -115,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void displayRecyclerView(List<Show> shows){
-
+    public void displayRecyclerView(){
+        shows = getShows();
         RecyclerView recyclerView = findViewById(R.id.rv_newShowsOutput);
         RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
@@ -141,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 JsonConverter converter = new JsonConverter();
                 List<Show> shows = converter.convertJsonToShow(response);
                 setShows(shows);
-                displayRecyclerView(getShows());
+                displayRecyclerView();
 
             }
         }, new Response.ErrorListener() {
@@ -155,17 +162,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          * Adding the request to the actual que without it the above code is just starting a queue
          * and nothing would happen
          */
-
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(request);
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
+
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
 
+        /**
+         *
+         * @param viewHolder
+         * @param direction
+         */
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
@@ -178,13 +190,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Show s = shows.get(position);
                     s.setListName("seenList");
                     SeenRepository.getRepository(getApplicationContext()).storeSeenShows(s);
-                    displayRecyclerView(getShows());
+                    displayRecyclerView();
                     break;
                 case ItemTouchHelper.LEFT:
                     Show s1 = shows.get(position);
                     s1.setListName("toWatchList");
                     SeenRepository.getRepository(getApplicationContext()).storeSeenShows(s1);
-                    displayRecyclerView(getShows());
+                    displayRecyclerView();
                     break;
             }
 

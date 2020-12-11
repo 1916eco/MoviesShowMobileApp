@@ -14,6 +14,7 @@ public class application_guide extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_application_guide);
 
+        //guide image
 
         Glide.with(getApplicationContext())
                 .load("https://image.tmdb.org/t/p/w500/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg")
