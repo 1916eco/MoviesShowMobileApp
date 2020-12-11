@@ -128,13 +128,8 @@ public class ShowRecyclerViewAdapter
             intent.putExtra(EXTRA_RELEASE, show.getFirstAirDate());
             intent.putExtra(EXTRA_SHOWID, show.getId());
 
-
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-
-            Log.d("SHOW_RECYCLER", "user clicked "+ show.getName());
-
         }
     }
-
 }

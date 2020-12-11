@@ -27,24 +27,31 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
     private String newShowNameSearch;
     public List<Show> shows;
 
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_watchlist);
-
         RecyclerView recyclerView = findViewById(R.id.rv_myWatchlistOutput);
 
         ((Button)findViewById(R.id.btn_myShowListSubmit)).setOnClickListener(this);
 
-
-
         shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
-        displayRecyclerView(shows);
+        setShows(shows);
+        displayRecyclerView();
 
 
     }
 
-    public void displayRecyclerView(List<Show> shows){
+    public void displayRecyclerView(){
+        shows = getShows();
         RecyclerView recyclerView = findViewById(R.id.rv_myWatchlistOutput);
 
         RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
@@ -67,13 +74,20 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
             newShowNameSearch = "%" +newShowNameSearch +"%"; //For SQL not exact search modifying the search to have % % around it
             if (!newShowNameSearch.matches("")||!newShowNameSearch.matches(null) ) {
                 shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,"toWatchList");
-                displayRecyclerView(shows);
+                setShows(shows);
+                displayRecyclerView();
             }else {
-                Toast.makeText(getApplicationContext(), "Search Empty! " , Toast.LENGTH_SHORT).show();
+                shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
+                setShows(shows);
+                displayRecyclerView();
 
             }
         }
     }
+
+    /**
+     * Swipe Item handler on this page both left and right swipe it will delete either way
+     */
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -86,10 +100,16 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
             SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,"toWatchList");
 
             shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
-            displayRecyclerView(shows);
+            setShows(shows);
+            displayRecyclerView();
         }
     };
 
+    /**
+     * AlertDialog creating a "Are you sure" dialog to get users final choice
+     * @param item Menu Item
+     * @return Returning Boolean - "YES" or "NO"
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         {
@@ -123,7 +143,7 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
                 AlertDialog alert = builder.create();
                 alert.show();
             }
-            return super.onOptionsItemSelected(item);//toWatchList
+            return super.onOptionsItemSelected(item);
         }
     }
 }

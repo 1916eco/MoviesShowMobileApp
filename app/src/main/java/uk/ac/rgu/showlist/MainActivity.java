@@ -2,9 +2,12 @@ package uk.ac.rgu.showlist;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,12 +40,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.ac.rgu.showlist.database.SeenRepository;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getCanonicalName();
     private String newShowNameSearch;
+    public List<Show> shows;
 
-    //key 2af2618736137dad0ac52770650060d6
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
+    }
+//key 2af2618736137dad0ac52770650060d6
 
     private static String JSON_URL = "https://api.themoviedb.org/3/discover/tv?api_key=2af2618736137dad0ac52770650060d6&page=1";
 
@@ -64,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btnNewShowSearch = findViewById(R.id.btn_SearchNewShowSubmit);
         btnNewShowSearch.setOnClickListener(this);
 
+
         /**
          * As the Main activity loads the application starts the getShowFromAPI function
          */
@@ -75,16 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.informationGuide) {
-            Intent intent = new Intent(getApplicationContext(), application_guide.class);
-            startActivity(intent);
 
-        }
-            return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onClick(View v) {
@@ -110,7 +115,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void displayRecyclerView(List<Show> shows){
 
+        RecyclerView recyclerView = findViewById(R.id.rv_newShowsOutput);
+        RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+    }
 
     private void getShowFromAPI(String JSON_URL) {
         //Starting a Request queue
@@ -124,14 +136,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
              */
             @Override
             public void onResponse(String response) {
-                RecyclerView recyclerView = findViewById(R.id.rv_newShowsOutput);
 
                 Log.d(TAG,"ResponseSuccess "+response);
                 JsonConverter converter = new JsonConverter();
                 List<Show> shows = converter.convertJsonToShow(response);
-                RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                setShows(shows);
+                displayRecyclerView(getShows());
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -147,6 +158,75 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(request);
+    }
+
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+            switch (direction) {
+                /**
+                 * s Is the show in the shows list then adding a setListName so the 2 list activities can
+                 * display the correct information
+                 */
+                case ItemTouchHelper.RIGHT:
+                    Show s = shows.get(position);
+                    s.setListName("seenList");
+                    SeenRepository.getRepository(getApplicationContext()).storeSeenShows(s);
+                    displayRecyclerView(getShows());
+                    break;
+                case ItemTouchHelper.LEFT:
+                    Show s1 = shows.get(position);
+                    s1.setListName("toWatchList");
+                    SeenRepository.getRepository(getApplicationContext()).storeSeenShows(s1);
+                    displayRecyclerView(getShows());
+                    break;
+            }
+
+        }
+    };
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.informationGuide) {
+            Intent intent = new Intent(getApplicationContext(), application_guide.class);
+            startActivity(intent);
+        }
+        else if(id == R.id.deleteAllMenu){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle("Delete Watch Later");
+            builder.setMessage("Are you sure you would like to Delete all Watch Later?");
+
+            builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(getApplicationContext(), "Your data is safe again!" , Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("YES", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SeenRepository.getRepository(getApplicationContext()).deleteAll();
+                    Toast.makeText(getApplicationContext(), "Deleted Everything! " , Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    recreate();
+
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

@@ -26,7 +26,11 @@
     <string name="tv_infoGuide">Application Guide</string>
     <string name="tv_titleGuide">Lucifer</string>
     <string name="tv_releaseGuide">2016-01-25</string>
-    <string name="tv_guideDescription1">To add a show to one of your lists you can slide Right to add to the Seen list and Left to need to watch later list</string>
+    <string name="tv_guideDescription3">After searching you can clear the search and hit the search button to clear the search
+    and start browsing the front page again</string>
+    <string name="tv_guideDescription1">To add a show to one of your lists you can slide
+        Right to add to the Seen list and Left to need to watch later list.
+        In the List view you can also swipe either way to delete the show from the list.</string>
     <string name="tv_guideDescription2">Click one of the buttons to View your Lists</string>
 
 </resources>

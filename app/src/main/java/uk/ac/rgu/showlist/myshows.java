@@ -30,6 +30,14 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
 
     public List<Show> shows;
 
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public void setShows(List<Show> shows) {
+        this.shows = shows;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +45,12 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
 
         ((Button)findViewById(R.id.btn_myShowListSubmit)).setOnClickListener(this);
         shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
-        displayRecyclerView(shows);
+        setShows(shows);
+        displayRecyclerView();
     }
 
-    public void displayRecyclerView(List<Show> shows){
+    public void displayRecyclerView(){
+        shows = getShows();
         RecyclerView recyclerView = findViewById(R.id.rv_MyShowsOutput);
         RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
@@ -62,15 +72,20 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
             newShowNameSearch = "%" +newShowNameSearch +"%";
             if (!newShowNameSearch.matches("")||!newShowNameSearch.matches(null) ) {
                 shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,"seenList");
-                displayRecyclerView(shows);
+                setShows(shows);
+                displayRecyclerView();
                 Log.d("BRUH", shows + newShowNameSearch);
             }else {
-                Toast.makeText(getApplicationContext(), "Search Empty! " , Toast.LENGTH_SHORT).show();
-
+                shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
+                setShows(shows);
+                displayRecyclerView();
             }
         }
     }
 
+     /**
+     * Swipe Item handler on this page both left and right swipe it will delete either way
+     */
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT| ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -80,11 +95,10 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            //SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,"seenList");
-
+            SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,"seenList");
             shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
-
-            displayRecyclerView(shows);
+            setShows(shows);
+            displayRecyclerView();
 
         }
     };

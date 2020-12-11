@@ -38,7 +38,7 @@ public class SeenRepository {
         };
 
         public void deleteAllShows(String listNamePassed){
-            showDao.deleteAll(listNamePassed);
+            showDao.deleteAllbyList(listNamePassed);
         }
 
         public List<Show> getSearchedShows(String showTitle, String listNamePassed){
@@ -48,6 +48,8 @@ public class SeenRepository {
     public void deleteShowbyName(String showTitle,String listNamePassed){
         showDao.deleteByName(showTitle,listNamePassed);
     }
-
+    public void deleteAll(){
+        showDao.deleteAll();
+    }
 
 }
