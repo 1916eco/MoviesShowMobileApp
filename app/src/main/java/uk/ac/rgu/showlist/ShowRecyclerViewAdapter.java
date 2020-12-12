@@ -78,24 +78,21 @@ public class ShowRecyclerViewAdapter
          *Using Glide library to get the full url for the poster as the api only gives the last
          * extension so converting the full and then loading it into the ImageViewer
          */
-        if (shows.get(position).getPosterImage() == "null" || shows.get(position).getPosterImage() == null ){
+        String imagePoster = shows.get(position).getPosterImage();
+
+        if (!"null".equals(imagePoster)){
             Glide.with(context)
-                    .load(R.drawable.no_img_for_shows)
+                    .load("https://image.tmdb.org/t/p/w500"+shows.get(position).getPosterImage())
                     .into((ImageView) holder.showItemView.findViewById(R.id.iv_img));
         }
         else{
             Glide.with(context)
-                    .load("https://image.tmdb.org/t/p/w500"+shows.get(position).getPosterImage())
+                    .load(R.drawable.no_img_for_shows)
                     .into((ImageView) holder.showItemView.findViewById(R.id.iv_img));
         }
 
         Log.d("SHOW_RECYCLER","BINDING");
     }
-
-//    @Override
-//    public void onBindViewHolder(@NonNull ShowViewHolder holder, int position) {
-//
-//    }
 
     @Override
     public int getItemCount() {

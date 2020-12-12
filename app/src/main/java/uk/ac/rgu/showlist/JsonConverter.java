@@ -15,6 +15,12 @@ public class JsonConverter {
 
     public ShowDao showDao;
 
+    /**
+     * @apiNote The API sends all the results in the "results" array and it iterates in the array
+     * adding the name,overview,first_air_date,poster_path,backdrop_path, show id and vote_average
+     * @param jsonString The full Json string that the API resoponded with
+     * @return  Returns the shows as a Show object
+     */
     public List<Show> convertJsonToShow(String jsonString){
         List<Show> shows = new ArrayList<Show>();
         try {

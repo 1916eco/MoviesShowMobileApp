@@ -28,12 +28,13 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
 
     private String newShowNameSearch;
 
+    /**
+     *
+     */
     public List<Show> shows;
-
     public List<Show> getShows() {
         return shows;
     }
-
     public void setShows(List<Show> shows) {
         this.shows = shows;
     }
@@ -108,7 +109,6 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
      * @param item Menu Item
      * @return Returning Boolean - "YES" or "NO"
      */
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

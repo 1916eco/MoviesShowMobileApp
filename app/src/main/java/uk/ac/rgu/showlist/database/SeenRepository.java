@@ -14,6 +14,12 @@ public class SeenRepository {
 
     private ShowDao showDao;
 
+    /**
+     *The Repository is the connection between the applicatiojn and the data access object
+     *
+     *
+     */
+
     public static SeenRepository getRepository(Context context){
             if (INSTANCE == null){
                 synchronized (SeenRepository.class){
@@ -29,25 +35,26 @@ public class SeenRepository {
             return INSTANCE;
         }
 
-        public void storeSeenShows(Show show){
-            this.showDao.insert(show);
-        }
+    public void storeSeenShows(Show show){
+        this.showDao.insert(show);
+    }
 
-        public List<Show> getSeenShows(String listNamePassed){
-            return showDao.getAllWatchedShows(listNamePassed);
-        };
+    public List<Show> getSeenShows(String listNamePassed){
+        return showDao.getAllWatchedShows(listNamePassed);
+    };
 
-        public void deleteAllShows(String listNamePassed){
-            showDao.deleteAllbyList(listNamePassed);
-        }
+    public List<Show> getSearchedShows(String showTitle, String listNamePassed){
+        return showDao.findShowByName(showTitle,listNamePassed);
+    }
 
-        public List<Show> getSearchedShows(String showTitle, String listNamePassed){
-            return showDao.findShowByName(showTitle,listNamePassed);
-        }
+    public void deleteAllShows(String listNamePassed){
+        showDao.deleteAllbyList(listNamePassed);
+    }
 
     public void deleteShowbyName(String showTitle,String listNamePassed){
         showDao.deleteByName(showTitle,listNamePassed);
     }
+
     public void deleteAll(){
         showDao.deleteAll();
     }
