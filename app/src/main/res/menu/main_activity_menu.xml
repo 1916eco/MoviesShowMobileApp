@@ -11,6 +11,10 @@
         android:id="@+id/deleteAllMenu"
         android:title="@string/menu_deleteAllShow"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/settingsButton"
+        android:title="@string/settingsMenu"
+        app:showAsAction="never" />
 
 
 </menu>

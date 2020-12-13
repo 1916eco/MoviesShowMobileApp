@@ -1,4 +1,7 @@
 <resources>
+<!--    Shared preference file-->
+    <string name="SHARED_PREF_FILE" translatable="false">uk.ac.rgu.showlist</string>
+    <string name="SHARED_PREF_FILE_SORT" translatable="false">personalised_sort</string>
     <string name="app_name">Showlist</string>
     <string name="gameDescription">Show Description</string>
     <string name="developerResource">Developer</string>
@@ -23,6 +26,8 @@
     <string name="btn_addWatchList">Watch Later</string>
     <string name="iv_ContentDescription">Image Of the Show</string>
     <string name="menu_deleteAllShow">Delete all Data</string>
+
+<!--    GUIDE-->
     <string name="tv_infoGuide">Application Guide</string>
     <string name="tv_titleGuide">Lucifer</string>
     <string name="tv_releaseGuide">2016-01-25</string>
@@ -33,5 +38,22 @@
         In the List view you can also swipe either way to delete the show from the list.</string>
     <string name="tv_guideDescription2">Click one of the buttons to View your Lists</string>
     <string name="ImageDescription">"TMDB "</string>
+
+<!--    Settings-->
+    <string name="tv_settings">Settings</string>
+    <string name="sp_titlePreferences">How would you like to sort the main page?</string>
+    <string name="settingsMenu">Settings</string>
+    <string name="btn_save">Save</string>
+
+
+    <string-array name="sp_sort">
+        <item>Popularity Descending</item>
+        <item>Popularity Ascending</item>
+        <item>Release Date Descending</item>
+        <item>Release Date Ascending</item>
+        <item>User rating Descending</item>
+        <item>User rating Ascending</item>
+    </string-array>
+
 
 </resources>

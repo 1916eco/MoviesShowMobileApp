@@ -25,8 +25,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Showlist">
-        <activity android:name=".application_guide"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".settings"
+            android:parentActivityName=".MainActivity" />
+        >
+        <activity
+            android:name=".application_guide"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ViewShowInfo"
             android:parentActivityName=".MainActivity" />
@@ -35,8 +39,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".myshows"
-            android:parentActivityName=".MainActivity" >
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

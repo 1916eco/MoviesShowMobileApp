@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -64,12 +66,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *      would be more protective of the apikey and users would have no way of getting it
      */
 
-    private static String JSON_URL = "https://api.themoviedb.org/3/discover/tv?api_key=2af2618736137dad0ac52770650060d6&page=1";
+
+    public SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = getSharedPreferences(getString(R.string.SHARED_PREF_FILE),MODE_PRIVATE);
 
         /**
          * Assigning buttons and setOnClickListeners which then sends the id of its self as the parameter
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /**
          * As the Main activity loads the application starts the getShowFromAPI function
          */
-        getShowFromAPI(JSON_URL);
+        getShowFromAPI(getJsonUrl());
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,7 +102,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    public String getJsonUrl() {
+        String JSON_URL = "https://api.themoviedb.org/3/discover/tv?api_key=2af2618736137dad0ac52770650060d6";
+        sharedPreferences = getSharedPreferences(getString(R.string.SHARED_PREF_FILE),MODE_PRIVATE);
 
+        /**
+         * Setting working with index of the array picked instead of the long string
+         *
+         * sorting the front page with specific ways
+         */
+        Integer personalised_sort = sharedPreferences.getInt(getString(R.string.SHARED_PREF_FILE_SORT),0);
+
+        if (personalised_sort == 1){
+            JSON_URL = JSON_URL + "&sort_by=popularity.asc&page=1";
+        }
+        else if (personalised_sort == 2){
+            JSON_URL = JSON_URL + "&sort_by=release_date.desc&page=1";
+        }
+        else if (personalised_sort == 3){
+            JSON_URL = JSON_URL + "&sort_by=release_date.asc&page=1";
+        }
+        else if (personalised_sort == 4){
+            JSON_URL = JSON_URL + "&sort_by=vote_average.desc&page=1";
+        }
+        else if (personalised_sort == 5){
+            JSON_URL = JSON_URL + "&sort_by=vote_average.asc&page=1";
+        }
+        else{JSON_URL = JSON_URL + "&sort_by=popularity.desc&page=1";}
+
+        return JSON_URL;
+    }
 
     @Override
     public void onClick(View v) {
@@ -118,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String searched = "https://api.themoviedb.org/3/search/tv?api_key=2af2618736137dad0ac52770650060d6&page=1&query="+ newShowNameSearch;
                 getShowFromAPI(searched);
                 Toast.makeText(getApplicationContext(), "Searching for "+newShowNameSearch, Toast.LENGTH_SHORT).show();
-            }else {getShowFromAPI(JSON_URL);}//if the search is empty it should clear the search and reload the main page with no filtrations
+            }else {getShowFromAPI(getJsonUrl());}//if the search is empty it should clear the search and reload the main page with no filtrations
         }
     }
 
@@ -133,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getShowFromAPI(String JSON_URL) {
         //Starting a Request queue
+
         StringRequest request = new StringRequest(Request.Method.GET, JSON_URL, new Response.Listener<String>() {
 
             /**
@@ -208,6 +244,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
         if (id == R.id.informationGuide) {
             Intent intent = new Intent(getApplicationContext(), application_guide.class);
+            startActivity(intent);
+        }else if(id == R.id.settingsButton){
+            Intent intent = new Intent(getApplicationContext(), settings.class);
             startActivity(intent);
         }
         else if(id == R.id.deleteAllMenu){
