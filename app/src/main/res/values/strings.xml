@@ -2,6 +2,15 @@
 <!--    Shared preference file-->
     <string name="SHARED_PREF_FILE" translatable="false">uk.ac.rgu.showlist</string>
     <string name="SHARED_PREF_FILE_SORT" translatable="false">personalised_sort</string>
+
+<!--    The List names in database-->
+<!--    for good coding practice the list names should always stay
+        consistent even when the application is further built-->
+    <string name="listToWatch" translatable="false">toWatchList</string>
+    <string name="listSeen" translatable="false">seenList</string>
+
+
+    <!--    Pages-->
     <string name="app_name">Showlist</string>
     <string name="gameDescription">Show Description</string>
     <string name="developerResource">Developer</string>
@@ -37,7 +46,7 @@
         Right to add to the Seen list and Left to need to watch later list.
         In the List view you can also swipe either way to delete the show from the list.</string>
     <string name="tv_guideDescription2">Click one of the buttons to View your Lists</string>
-    <string name="ImageDescription">"TMDB "</string>
+    <string name="ImageDescription">"TMDB"</string>
 
 <!--    Settings-->
     <string name="tv_settings">Settings</string>

@@ -29,7 +29,8 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
     private String newShowNameSearch;
 
     /**
-     *
+     *  Setting a local shows with a getter and setter so it can be accessed by the
+     *  displayRecyclerView method
      */
     public List<Show> shows;
     public List<Show> getShows() {
@@ -45,7 +46,7 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_myshows);
 
         ((Button)findViewById(R.id.btn_myShowListSubmit)).setOnClickListener(this);
-        shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
+        shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows(getString(R.string.listSeen));
         setShows(shows);
         displayRecyclerView();
     }
@@ -72,12 +73,12 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
             newShowNameSearch = String.valueOf(etSearchTerm.getText());
             newShowNameSearch = "%" +newShowNameSearch +"%";
             if (!newShowNameSearch.matches("")||!newShowNameSearch.matches(null) ) {
-                shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,"seenList");
+                shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,getString(R.string.listSeen));
                 setShows(shows);
                 displayRecyclerView();
                 Log.d("BRUH", shows + newShowNameSearch);
             }else {
-                shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
+                shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows(getString(R.string.listSeen));
                 setShows(shows);
                 displayRecyclerView();
             }
@@ -96,8 +97,8 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,"seenList");
-            shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("seenList");
+            SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,getString(R.string.listSeen));
+            shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows(getString(R.string.listSeen));
             setShows(shows);
             displayRecyclerView();
 
@@ -130,7 +131,7 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    SeenRepository.getRepository(getApplicationContext()).deleteAllShows("seenList");
+                    SeenRepository.getRepository(getApplicationContext()).deleteAllShows(getString(R.string.listSeen));
                     Toast.makeText(getApplicationContext(), "Deleted Everything! " , Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     recreate();

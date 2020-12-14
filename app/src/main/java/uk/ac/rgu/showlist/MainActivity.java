@@ -50,21 +50,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String newShowNameSearch;
 
     /**
-     *
+     *  Setting a local shows with a getter and setter so it can be accessed by the
+     *  displayRecyclerView method
      */
     public List<Show> shows;
-
     public List<Show> getShows() {
         return shows;
     }
-
     public void setShows(List<Show> shows) {
         this.shows = shows;
     }
 
-    /**     API url to get the front page this would preferably be on a proxy, making a call to a proxy link
-     *      would be more protective of the apikey and users would have no way of getting it
-     */
+
 
 
     public SharedPreferences sharedPreferences;
@@ -103,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public String getJsonUrl() {
+        /**     API url to get the front page this would preferably be on a proxy, making a call to a proxy link
+         *      would be more protective of the apikey and users would have no way of getting it
+         */
         String JSON_URL = "https://api.themoviedb.org/3/discover/tv?api_key=2af2618736137dad0ac52770650060d6";
         sharedPreferences = getSharedPreferences(getString(R.string.SHARED_PREF_FILE),MODE_PRIVATE);
 
@@ -158,6 +158,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void displayRecyclerView(){
+        /**
+         * displaying the list of shows into the RecyclerView
+         */
         shows = getShows();
         RecyclerView recyclerView = findViewById(R.id.rv_newShowsOutput);
         RecyclerView.Adapter adapter = new ShowRecyclerViewAdapter(getApplicationContext(),shows);
@@ -224,13 +227,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  */
                 case ItemTouchHelper.RIGHT:
                     Show s = shows.get(position);
-                    s.setListName("seenList");
+                    s.setListName(getString(R.string.listSeen));
                     SeenRepository.getRepository(getApplicationContext()).storeSeenShows(s);
                     displayRecyclerView();
                     break;
                 case ItemTouchHelper.LEFT:
                     Show s1 = shows.get(position);
-                    s1.setListName("toWatchList");
+                    s1.setListName(getString(R.string.listToWatch));
                     SeenRepository.getRepository(getApplicationContext()).storeSeenShows(s1);
                     displayRecyclerView();
                     break;

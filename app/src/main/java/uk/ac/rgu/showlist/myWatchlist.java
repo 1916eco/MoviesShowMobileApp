@@ -25,12 +25,15 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
 
 
     private String newShowNameSearch;
-    public List<Show> shows;
 
+    /**
+     *  Setting a local shows with a getter and setter so it can be accessed by the
+     *  displayRecyclerView method
+     */
+    public List<Show> shows;
     public List<Show> getShows() {
         return shows;
     }
-
     public void setShows(List<Show> shows) {
         this.shows = shows;
     }
@@ -43,7 +46,7 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
 
         ((Button)findViewById(R.id.btn_myShowListSubmit)).setOnClickListener(this);
 
-        shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
+        shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSeenShows(getString(R.string.listToWatch));
         setShows(shows);
         displayRecyclerView();
 
@@ -69,15 +72,18 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
 
 
         if (v.getId() == R.id.btn_myShowListSubmit){
+            /**
+             *
+             */
             EditText etSearchTerm = findViewById(R.id.et_myWatchLaterListNameSearch);
             newShowNameSearch = String.valueOf(etSearchTerm.getText());
             newShowNameSearch = "%" +newShowNameSearch +"%"; //For SQL not exact search modifying the search to have % % around it
             if (!newShowNameSearch.matches("")||!newShowNameSearch.matches(null) ) {
-                shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,"toWatchList");
+                shows = (List<Show>) SeenRepository.getRepository(getApplicationContext()).getSearchedShows(newShowNameSearch,getString(R.string.listToWatch));
                 setShows(shows);
                 displayRecyclerView();
             }else {
-                shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
+                shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows(getString(R.string.listToWatch));
                 setShows(shows);
                 displayRecyclerView();
 
@@ -97,9 +103,9 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,"toWatchList");
+            SeenRepository.getRepository(getApplicationContext()).deleteShowbyName(shows.get(position).name,getString(R.string.listToWatch));
 
-            shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows("toWatchList");
+            shows = SeenRepository.getRepository(getApplicationContext()).getSeenShows(getString(R.string.listToWatch));
             setShows(shows);
             displayRecyclerView();
         }
@@ -132,7 +138,7 @@ public class myWatchlist extends AppCompatActivity implements View.OnClickListen
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SeenRepository.getRepository(getApplicationContext()).deleteAllShows("toWatchList");
+                        SeenRepository.getRepository(getApplicationContext()).deleteAllShows(getString(R.string.listToWatch));
                         Toast.makeText(getApplicationContext(), "Deleted Everything! " , Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                         recreate();

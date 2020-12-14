@@ -111,9 +111,12 @@ public class ShowRecyclerViewAdapter
 
         @Override
         public void onClick(View v) {
-            // get the clicked item's position
+            /**
+             * get the clicked item's position
+             * then adding the information about the item into a intent put extra so the next
+             * intent could get all the relevant information
+             */
             int position = getAdapterPosition();
-
             Show show = shows.get(position);
 
             Intent intent = new Intent(context, ViewShowInfo.class);

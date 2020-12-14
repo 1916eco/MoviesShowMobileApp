@@ -53,6 +53,9 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onPause() {
         super.onPause();
+        /**
+         * On leaving the page saving current selected spinner
+         */
 
         Spinner spinner = findViewById(R.id.sp_sortPref);
         int selectedIndex = spinner.getSelectedItemPosition();

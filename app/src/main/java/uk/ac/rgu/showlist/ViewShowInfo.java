@@ -47,7 +47,9 @@ public class ViewShowInfo extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        //assigning the button to a onclick listener which then would filter by Button.id
+        /**
+         *  assigning the button to a onclick listener which then would filter by Button.id
+         */
         setContentView(R.layout.activity_view_show_info);
         ((Button)findViewById(R.id.btn_checkOnline)).setOnClickListener(this);
 
