@@ -58,5 +58,7 @@ public class SeenRepository {
     public void deleteAll(){
         showDao.deleteAll();
     }
-
+    public int getCountAll(){
+        return showDao.getCountAll();
+    }
 }

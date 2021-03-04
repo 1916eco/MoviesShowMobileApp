@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -62,7 +63,7 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.seenshowmenu,menu);
         return true;
     }
 
@@ -140,6 +141,9 @@ public class myshows extends AppCompatActivity implements View.OnClickListener {
 
             AlertDialog alert = builder.create();
             alert.show();
+        }else if (id == R.id.informationGuide) {
+            int Temp = SeenRepository.getRepository(getApplicationContext()).getCountAll();
+            Toast.makeText(getApplicationContext(), "The amount of shows you watched "  + Temp, Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

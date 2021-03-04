@@ -43,4 +43,30 @@ public class JsonConverter {
         }
         return shows;
     }
+
+
+    public List<InDepthShow> indepthConvertJson(String jsonString){
+        List<InDepthShow> indepthshows = new ArrayList<InDepthShow>();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray resultsObject = jsonObject.getJSONArray("results");
+            for (int i =0, j = resultsObject.length();i<j;i++){
+                JSONObject resultObject = resultsObject.getJSONObject(i);
+                InDepthShow indepthshow = new InDepthShow();
+                indepthshow.setNumberOfSeasons(resultObject.getInt("number_of_seasons"));
+//                indepthshow.setOverview(resultObject.getString("overview"));
+//                indepthshow.setFirstAirDate(resultObject.getString("first_air_date"));
+//                indepthshow.setPosterImage(resultObject.getString("poster_path"));
+//                indepthshow.setBackdropImage(resultObject.getString("backdrop_path"));
+//                indepthshow.setId(resultObject.getInt("id"));
+//                indepthshow.setVoteAvg(resultObject.getDouble("vote_average"));
+                indepthshows.add(indepthshow);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return indepthshows;
+    }
+
+
 }

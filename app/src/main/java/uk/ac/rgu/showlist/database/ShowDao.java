@@ -36,4 +36,7 @@ public interface ShowDao {
 
     @Query("DELETE FROM show WHERE (name like :searchForName) and (listName like :listNamePassed)")
     public void deleteByName(String searchForName, String listNamePassed);
+
+    @Query("SELECT COUNT(name) FROM show")
+    public int getCountAll();
 }
